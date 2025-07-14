@@ -49,8 +49,6 @@ int main() {
 			life_cycle(grid, renderer);
 		}
 
-//		render_grid(grid, renderer);
-//		life_cycle(grid);
 	}
 
 	SDL_DestroyRenderer(renderer);
