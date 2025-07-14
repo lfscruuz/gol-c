@@ -49,18 +49,7 @@ int main() {
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		for (int y = 0; y < HEIGHT; y++) {
-			for (int x = 0; x < WIDTH; x++) {
-				if (grid[y][x]) {
-					SDL_Rect cell = { x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE};
-					SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-					SDL_RenderFillRect(renderer, &cell);
-				}
-			}
-		}
-	
-		SDL_RenderPresent(renderer);
-		SDL_Delay(100);
+		render_grid(grid, renderer);
 	}
 
 	SDL_DestroyRenderer(renderer);
