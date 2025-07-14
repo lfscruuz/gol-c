@@ -29,13 +29,6 @@ int main() {
 
 	srand(time(NULL));
 	int grid[HEIGHT][WIDTH];
-
-	if (grid[0][0] != 0 || grid[0][0] != 1){
-		set_initial_grid(grid);
-	}
-
-	print_grid(grid);
-
 	bool running = true;
 	SDL_Event event;
 
@@ -48,8 +41,16 @@ int main() {
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
+		
+		if (grid[0][0] != 0 || grid[0][0] != 1){
+			set_initial_grid(grid, renderer);
+			print_grid(grid);
+		} else {
+			life_cycle(grid, renderer);
+		}
 
-		render_grid(grid, renderer);
+//		render_grid(grid, renderer);
+//		life_cycle(grid);
 	}
 
 	SDL_DestroyRenderer(renderer);

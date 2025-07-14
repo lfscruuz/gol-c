@@ -6,19 +6,6 @@
 
 #include "config.h"
 
-void set_initial_grid(int grid[HEIGHT][WIDTH]){
-	for (int i = 0; i < HEIGHT; i++) {
-		for (int j = 0; j < WIDTH; j++) {
-			int choice = rand() % 100;
-			if (choice < 5){
-				grid[i][j] = 1;
-			} else {
-				grid[i][j] = 0;
-			}
-		}
-	}
-}
-
 void render_grid(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer) {
 	for (int y = 0; y < HEIGHT; y++) {
 			for (int x = 0; x < WIDTH; x++) {
@@ -33,7 +20,22 @@ void render_grid(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer) {
 	SDL_Delay(100);
 }
 
-void life_cycle(int grid[HEIGHT][WIDTH]) {
+void set_initial_grid(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer){
+	for (int i = 0; i < HEIGHT; i++) {
+		for (int j = 0; j < WIDTH; j++) {
+			int choice = rand() % 100;
+			if (choice < 5){
+				grid[i][j] = 1;
+			} else {
+				grid[i][j] = 0;
+			}
+		}
+	}
+
+	render_grid(grid, renderer);
+}
+
+void life_cycle(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer) {
 	for (int y = 0; y < HEIGHT; y++) {
 		for (int x = 0; x < WIDTH; x++) {
 			int live_neighbors = 0;
@@ -59,3 +61,6 @@ void life_cycle(int grid[HEIGHT][WIDTH]) {
 			}
 		}
 	}
+
+	render_grid(grid, renderer);
+}
