@@ -32,6 +32,8 @@ int main() {
 	bool running = true;
 	SDL_Event event;
 
+	set_initial_grid(grid, renderer);
+
 	while (running) {
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
@@ -41,14 +43,8 @@ int main() {
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
-		
-		if (grid[0][0] != 0 || grid[0][0] != 1){
-			set_initial_grid(grid, renderer);
-			print_grid(grid);
-		} else {
-			life_cycle(grid, renderer);
-		}
 
+		life_cycle(grid, renderer);	
 	}
 
 	SDL_DestroyRenderer(renderer);
