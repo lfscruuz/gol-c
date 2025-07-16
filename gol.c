@@ -33,6 +33,7 @@ int main() {
 	SDL_Event event;
 
 	set_initial_grid(grid, renderer);
+	int generation_counter = 0;
 
 	while (running) {
 		while (SDL_PollEvent(&event)) {
@@ -41,10 +42,15 @@ int main() {
 			}
 		}
 
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		if (generation_counter >= 3000){ //3000 0.1s generations = 5m
+			set_initial_grid(grid, renderer);
+			generation_counter = 0;
+		}
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 150);
 		SDL_RenderClear(renderer);
 
 		life_cycle(grid, renderer);	
+		generation_counter++;
 	}
 
 	SDL_DestroyRenderer(renderer);

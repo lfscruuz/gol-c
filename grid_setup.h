@@ -9,7 +9,7 @@
 void render_grid(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer) {
 	for (int y = 0; y < HEIGHT; y++) {
 		for (int x = 0; x < WIDTH; x++) {
-			if (grid[x][y] == 1) {
+			if (grid[y][x] == 1) {
 				SDL_Rect cell = { x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE};
 				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 				SDL_RenderFillRect(renderer, &cell);
@@ -21,13 +21,13 @@ void render_grid(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer) {
 }
 
 void set_initial_grid(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer){
-	for (int i = 0; i < HEIGHT; i++) {
-		for (int j = 0; j < WIDTH; j++) {
+	for (int y = 0; y < HEIGHT; y++) {
+		for (int x = 0; x < WIDTH; x++) {
 			int choice = rand() % 100;
 			if (choice < 10){
-				grid[i][j] = 1;
+				grid[y][x] = 1;
 			} else {
-				grid[i][j] = 0;
+				grid[y][x] = 0;
 			}
 		}
 	}
@@ -37,12 +37,12 @@ void set_initial_grid(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer){
 
 void life_cycle(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer) {
 	int next[HEIGHT][WIDTH] = {0};
-	for (int x = 0; x < WIDTH; x++) {
-		for (int y = 0; y < HEIGHT; y++) {
+	for (int y = 0; y < HEIGHT; y++) {
+		for (int x = 0; x < WIDTH; x++) {
 			int live_neighbors = 0;
-			for (int i = x - 1; i <= x + 1; i++) {
-				for (int j = y - 1; j <= y + 1; j++){
-					if ( i == x && j == y) {
+			for (int i = y - 1; i <= y + 1; i++) {
+				for (int j = x - 1; j <= x + 1; j++){
+					if ( i == y && j == x) {
 						continue;
 					}
 					if (i >= 0 && i < HEIGHT && j >= 0 && j < WIDTH) {
@@ -52,16 +52,16 @@ void life_cycle(int grid[HEIGHT][WIDTH], SDL_Renderer *renderer) {
 					}
 				}
 			}
-			if (grid[x][y] == 1) {
+			if (grid[y][x] == 1) {
 				if (live_neighbors == 2 || live_neighbors == 3){
-					next[x][y] = 1;
+					next[y][x] = 1;
 				} else {
-					next[x][y] = 0;
+					next[y][x] = 0;
 				}
 			}
 			else {
 				if (live_neighbors == 3) {
-					next[x][y] = 1;
+					next[y][x] = 1;
 				}
 			}
 		}
